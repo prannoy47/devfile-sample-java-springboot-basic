@@ -38,14 +38,15 @@ spec:
                 name: example 
                 key: AZURE_TENANT_ID
           - name: AZURE_CLIENT_CERTIFICATE_PATH
-            value: /opt/ssl/AZURE_CLIENT_CERTIFICATE_PATH
+            value: /opt/ssl/spncert
       volumes:
       - name: certpath
         configMap:
           name: example
+          key: AZURE_CLIENT_CERTIFICATE_PATH
           items:
           - key: AZURE_CLIENT_CERTIFICATE_PATH
-            path: keys
+            path: spncert
 ---
 kind: Service
 apiVersion: v1
