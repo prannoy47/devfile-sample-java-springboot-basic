@@ -23,6 +23,29 @@ spec:
             limits:
               memory: "1024Mi"
               cpu: "500m"
+          volumeMounts:
+          - name: certpath
+            mountPath: /opt/ssl
+          env:
+          - name: AZURE_CLIENT_ID
+            valueFrom:
+              configMapKeyRef:
+                name: example 
+                key: AZURE_CLIENT_ID
+          - name: AZURE_TENANT_ID
+            valueFrom:
+              configMapKeyRef:
+                name: example 
+                key: AZURE_TENANT_ID
+          - name: AZURE_CLIENT_CERTIFICATE_PATH
+            value: /opt/ssl/AZURE_CLIENT_CERTIFICATE_PATH
+      volumes:
+      - name: certpath
+        configMap:
+          name: example
+          items:
+          - key: AZURE_CLIENT_CERTIFICATE_PATH
+            path: keys
 ---
 kind: Service
 apiVersion: v1
